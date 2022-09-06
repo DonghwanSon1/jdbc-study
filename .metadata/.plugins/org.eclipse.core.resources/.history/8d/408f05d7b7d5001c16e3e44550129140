@@ -1,0 +1,141 @@
+package com.kh.model.service;
+
+import static com.kh.common.JDBCTemplate.*;
+import static com.kh.common.JDBCTemplate.getConnection;
+
+import java.lang.reflect.Member;
+import java.sql.Connection;
+import java.util.ArrayList;
+
+import com.kh.model.dao.RestaurantOrderDao;
+import com.kh.model.vo.RestaurantMenuList;
+
+/*
+ * Service : 기존의 DAO의 역할을 분담
+ * 			 Controller에서 Service를 호출(Connection 객체 생성) 후 Service를 거쳐서 Dao로 넘어갈것
+ * 			 Dao 호출 시 Connection객체 + 기존에 넘기고자했던 매개변수를 같이 넘겨줌
+ * 			 Dao 처리가 끝나면 Service단에서 결과에 따른 트랜잭션 처리도 같이 해줌
+ * 			 => Service단을 추가함으로써 Dao에는 순수하게 SQL문을 처리하는 부분만 남음
+ * 
+ */
+
+
+public class RestaurantOrderService {
+
+//	public int insertMember(Member m) {
+//		
+//		// Connection 객체 생성 
+//		Connection conn = getConnection();
+//		
+//		// DAO 호출 시 Connection 객체와 기존에 넘기고자했던 매개변수를 같이 넘김
+//		int result = new MemberDao().insertMember(conn, m);
+//		
+//		// 결과에 따른 트랜잭션 처리 
+//		if(result > 0) {
+//			commit(conn);
+//		} else {
+//			rollback(conn);
+//		}
+//		
+//		// Connection 객체 반납
+//		close(conn);
+//		
+//		return result;
+//	}
+	
+	
+	public ArrayList<RestaurantMenuList> selectAll(){
+		
+		Connection conn = getConnection();
+
+		ArrayList<RestaurantMenuList> list = new RestaurantOrderDao().selectAll(conn);
+		
+		close(conn);
+		
+		
+		return list;
+	}
+	
+//	public Member selectByUserId(String userId) {
+//		
+//		Connection conn = getConnection();
+//		
+//		Member m = new MemberDao().selectByUserId(conn, userId);
+//		
+//		close(conn);
+//		
+//		return m;
+//	}
+//	
+	public ArrayList<RestaurantMenuList> selectByMenuName(String keyword){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<RestaurantMenuList> list = new RestaurantOrderDao().selectByMenuName(conn, keyword);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+		
+	public int selectTaste(String taste){
+	        
+	        Connection conn = getConnection();
+	        
+	        int flag = new RestaurantOrderDao().selectTaste(conn, taste);
+	        
+	        close(conn);
+	        
+	        return flag;
+	        
+	    }
+	    
+	    public ArrayList<RestaurantMenuList> searchTaste(String taste){
+	        
+	        Connection conn = getConnection();
+	        
+	        ArrayList<RestaurantMenuList> list = new RestaurantOrderDao().searchTaste(conn, taste);
+	        
+	        close(conn);
+	        
+	        return list;
+	        
+	    }
+	
+	
+	public int adminDeleteMenu(String menu) {
+		
+		Connection conn = getConnection();
+		int result = new RestaurantOrderDao().adminDeleteMenu(conn, menu);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

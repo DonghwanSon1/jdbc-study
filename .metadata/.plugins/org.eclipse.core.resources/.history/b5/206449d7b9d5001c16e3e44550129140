@@ -1,0 +1,101 @@
+package com.kh.controller;
+
+import java.util.ArrayList;
+
+import com.kh.model.service.RestaurantOrderService;
+import com.kh.model.vo.RestaurantMenuList;
+import com.kh.view.RestaurantOrderView;
+
+
+
+public class RestaurantOrderController {
+
+
+	
+
+	public void selectAll() {
+
+		
+		ArrayList<RestaurantMenuList> list = new RestaurantOrderService().selectAll();
+		
+
+		if(list.isEmpty()) {
+			new RestaurantOrderView().displayNodata("조회 실패했습니다.");
+		} else {
+			new RestaurantOrderView().displayList(list);
+		}
+		
+	}
+	
+	
+	public void selectByMenuName(String keyword) {
+		ArrayList<RestaurantMenuList> list = new RestaurantOrderService().selectByMenuName(keyword);
+		
+		if(list.isEmpty()) {
+			new RestaurantOrderView().displayFail("조회 실패했습니다.");
+		} else {
+			new RestaurantOrderView().displayList(list);
+		}
+	}
+		
+	public void searchTaste(String taste) {
+	        
+	        int flag = new RestaurantOrderService().selectTaste(taste);
+	        
+	        if(flag == 0) {
+	            new RestaurantOrderView().displayFail("해당 맛이 없어요~ 추가 예정입니다!");
+	            return;
+	        }
+	        
+	        
+	        ArrayList<RestaurantMenuList> list = new ArrayList<>();
+	        
+	        list = new RestaurantOrderService().searchTaste(taste);
+	        
+	        if(list.isEmpty()) {
+	            new RestaurantOrderView().displayFail("검색 실패!");
+	        } else {
+	            new RestaurantOrderView().displayList(list);
+	        }
+	        
+	    }
+
+	public String getLastno(String category) {
+			
+			RestaurantMenuList r = new RestaurantOrderService().getLastNo(category);
+			
+			return r.getMenuNo();
+		}
+	
+		
+	public void insertMenu(String menuno, String menu, int price, String category, String taste) {
+		
+		int result = new RestaurantOrderService().insertMenu(menuno, menu, price, category, taste);
+		
+		if (result > 0) {
+			new RestaurantOrderView().displaySuccess("메뉴 추가 성공");
+		} else {
+			new RestaurantOrderView().displayFail("메뉴 추가 실패");
+		}
+		
+	}
+
+	
+	
+	public void adminDeleteMenu(String menu) {
+		
+		int result = new RestaurantOrderService().adminDeleteMenu(menu);
+		
+		if(result > 0) {
+			new RestaurantOrderView().displaySuccess("메뉴 삭제 성공했습니다.");
+		} else {
+			new RestaurantOrderView().displayFail("메뉴 삭제 실패했습니다.");
+		}	
+	}
+	
+	
+	
+	
+	
+
+}

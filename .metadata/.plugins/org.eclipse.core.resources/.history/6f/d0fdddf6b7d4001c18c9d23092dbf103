@@ -1,0 +1,68 @@
+package com.kh.model.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import com.kh.model.vo.Board;
+
+public class BoardDao {
+
+	
+	public ArrayList<Board> selectAll(Connection conn){
+		
+		ArrayList<Board> list = new ArrayList();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		
+		
+		
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

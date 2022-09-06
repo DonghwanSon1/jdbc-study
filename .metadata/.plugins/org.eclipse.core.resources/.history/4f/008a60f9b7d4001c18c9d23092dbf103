@@ -1,0 +1,68 @@
+package com.kh.model.service;
+
+import static com.kh.common.JDBCTemplate.getConnection;
+
+import java.sql.Connection;
+import java.util.ArrayList;
+
+import com.kh.model.dao.BoardDao;
+import com.kh.model.vo.Board;
+
+public class BoardService {
+
+	
+	public ArrayList<Board> selectAll(){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectAll(conn);
+		
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

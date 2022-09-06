@@ -1,0 +1,62 @@
+package com.kh.controller;
+
+import java.util.ArrayList;
+
+import com.kh.model.service.BoardService;
+import com.kh.model.vo.Board;
+
+public class BoardController {
+
+	public ArrayList<Board> selectAll(){
+		ArrayList<Board> list = new BoardService().selectAll();
+		
+		
+		return list;
+	}
+	
+	
+	public Board selectBoard(int boardNo) {
+		
+		Board b = new BoardService().selectBoard(boardNo);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

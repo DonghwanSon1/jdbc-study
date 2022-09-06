@@ -1,0 +1,73 @@
+package com.kh.model.service;
+
+import java.sql.Connection;
+
+import com.kh.common.JDBCTemplate;
+import com.kh.model.dao.MemberDao;
+import com.kh.model.vo.Member;
+
+/*
+ * Service : 기존의 DAO의 역할을 분담
+ * 			 Controller에서 Service를 호출(Connection 객체 생성) 후 Service를 거쳐서 Dao로 넘어갈것
+ * 			 Dao 호출 시 Connection객체 + 기존에 넘기고자했던 매개변수를 같이 넘겨줌
+ * 			 Dao 처리가 끝나면 Service단에서 결과에 따른 트랜잭션 처리도 같이 해줌
+ * 			 => Service단을 추가함으로써 Dao에는 순수하게 SQL문을 처리하는 부분만 남음
+ * 
+ */
+
+
+public class MemberService {
+
+	public int insertMember(Member m) {
+		
+		// Connection 객체 생성 
+		Connection conn = JDBCTemplate.getConnection();
+		
+		// DAO 호출 시 Connection 객체와 기존에 넘기고자했던 매개변수를 같이 넘김
+		int result = new MemberDao().insertMember(conn, m);
+		
+		// 결과에 따른 트랜잭션 처리 
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		// Connection 객체 반납
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

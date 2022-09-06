@@ -1,0 +1,88 @@
+package com.kh.model.vo;
+
+import java.sql.Date;
+
+public class OrderInfo {
+	
+//	ORDERNO	NUMBER
+//	USERNAME	VARCHAR2(15 BYTE)
+//	MENU	VARCHAR2(20 BYTE)
+//	PHONE	CHAR(11 BYTE)
+//	ADDRESS	VARCHAR2(100 BYTE)
+//	ORDERDATE	DATE
+	private int orderNo;
+	private String userName;
+	private String menu;
+	private String phone;
+	private String address;
+	private Date orderDate;
+	
+	public OrderInfo() {
+		super();
+	}
+
+	public OrderInfo(int orderNo, String userName, String menu, String phone, String address, Date orderDate) {
+		super();
+		this.orderNo = orderNo;
+		this.userName = userName;
+		this.menu = menu;
+		this.phone = phone;
+		this.address = address;
+		this.orderDate = orderDate;
+	}
+
+	public int getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getMenu() {
+		return menu;
+	}
+
+	public void setMenu(String menu) {
+		this.menu = menu;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public Date getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderInfo [주문번호 : " + orderNo + ", 주문자명 : " + userName + ", 메뉴 : " + menu + ", 전화번호 :" + phone
+				+ ", 주소 : " + address + ", 주문일 : " + orderDate + "]";
+
+	}
+}

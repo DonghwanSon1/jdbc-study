@@ -1,0 +1,135 @@
+package com.kh.model.dao;
+
+import static com.kh.common.JDBCTemplate.close;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import com.kh.model.vo.Board;
+
+public class BoardDao {
+
+	
+	public ArrayList<Board> selectAll(Connection conn){
+		
+		ArrayList<Board> list = new ArrayList();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = "SELECT BNO, TITLE, CREATE_DATE, USERID FROM BOARD, MEMBER "
+					+ "WHERE WRITER = USERNO "
+					+ "AND DELETE_YN = 'N' "
+					+ "ORDER BY CREATE_DATE DESC";
+		/*
+		 *  SELECT BNO, TITLE, CREATE_DATE, USERID
+		 *    FROM BOARD, MEMBER
+		 *   WHERE WRITER = USERNO
+		 *   AND DELETE_YN = 'N'
+		 *   ORDER BY CREATE_DATE DESC;
+		 * 
+		 */
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Board(rset.getInt("BNO")
+								 , rset.getString("TITLE")
+								 , rset.getDate("CREATE_DATE")
+								 , rset.getString("USERID")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+				close(rset);
+				close(pstmt);
+		}
+		return list;
+	}
+	
+	
+	public Board selectBoard(Connection conn, int boardNo) {
+		
+		Board b = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = "SELECT BNO, TITLE, CONTENT, CREATE_DATE, USERID "
+					+ "FROM BOARD, MEMBER "
+					+ "WHERE WRITER = USERNO "
+					+ "AND DELET_YN = 'N' "
+					+ "AND BNO = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				b = new Board();
+				b.setbNo(rset.getInt("BNO"));
+				b.setTitle(rset.getString("TITLE"));
+				b.setContent(rset.getString("CONTENT"));
+				b.setCreate_date(rset.getDate("CREATE_DATE"));
+				b.setWriter(rset.getString("USERID"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return b;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

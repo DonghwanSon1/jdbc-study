@@ -1,0 +1,219 @@
+package com.kh.model.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import com.kh.model.vo.Product;
+
+public class ProductDao {
+
+	
+	public ArrayList<Product> selectAll() {
+		ArrayList<Product> list = new ArrayList<>();
+		
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = "SELECT * FROM PRODUCT";
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe"
+												, "JDBC"
+												, "JDBC");
+			
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			while(rset.next()) {
+				
+				Product p = new Product();
+				
+				p.setProduct_ID(rset.getString("PRODUCT_ID"));
+				p.setProduct_Name(rset.getString("PRODUCT_NAME"));
+				p.setPrice(rset.getInt("PRICE"));
+				p.setDescription(rset.getString("DESCRIPTION"));
+				p.setStock(rset.getInt("STOCK"));
+				
+				list.add(p);
+			}
+			
+			
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rset.close();
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		return list;
+	}
+	
+	
+	public int insertProduct(Product p) {
+		
+		int result = 0;
+		Connection conn = null;
+		Statement stmt = null;
+		
+		String sql = "INSERT INTO PRODUCT VALUES("
+					+ "'" + p.getProduct_ID() + "', "
+					+ "'" + p.getProduct_Name() + "', "
+					+ 		p.getPrice() + ", "
+					+ "'" + p.getDescription() + "', "
+					+		p.getStock() + ")";
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe",
+												"JDBC",
+												"JDBC");
+			
+			stmt = conn.createStatement();
+			result = stmt.executeUpdate(sql);
+			
+			if(result > 0) {
+				conn.commit();
+			} else {
+				conn.rollback();
+			}
+			
+			
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	
+	public ArrayList<Product> selectByProductName(String keyword){
+		
+		ArrayList<Product> list = new ArrayList<>();
+		
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = "SELECT * FROM PRODUCT WHERE PRODUCT_NAME = '" + keyword + "'";
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","JDBC","JDBC");
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				
+				list.add(new Product(rset.getString("PRODUCT_ID")
+									,rset.getString("PRODUCT_NAME")
+									,rset.getInt("PRICE")
+									,rset.getString("DESCRIPTION")
+									,rset.getInt("STOCK")));
+				
+			}
+			
+			
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rset.close();
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	
+	
+	public int updateProduct(Product p) {
+		int result = 0;
+		Connection conn = null;
+		Statement stmt = null;
+		
+		String sql = "UPDATE PRODUCT SET "
+					 + "PRODUCT_NAME = " + "'" + p.getProduct_Name() + "', "
+					 + "PRICE = " + "'" + "'" + p.getPrice() + "', "
+					 + "DESCRIPTION = " + "'" + p.getDescription() + "', "
+					 + "STOCK = " + "'" + p.getStock() + "' "
+					 + "WHERE PRODUCT_ID = " + "'" + p.getProduct_ID() +"'";
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "JDBC","JDBC");
+			stmt = conn.createStatement();
+			
+			result = stmt.executeUpdate(sql);
+			
+			if(result > 0) {
+				conn.commit();
+			} else {
+				conn.rollback();
+			}
+			
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

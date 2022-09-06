@@ -1,0 +1,75 @@
+package com.kh.controller;
+
+import java.util.ArrayList;
+
+import com.kh.model.dao.ProductDao;
+import com.kh.model.vo.Product;
+import com.kh.view.ProductView;
+
+public class ProductController {
+
+
+
+	public void selectAll() {
+		
+		ArrayList<Product> list = new ProductDao().selectAll();
+		
+		if(list.isEmpty()) {
+			new ProductView().displayNodata("조회결과 없습니다!");
+		} else {
+			new ProductView().displayList(list);
+		}
+	}
+	
+	
+	public void insertProduct(String product_ID, String product_Name, int price, String description, int stock ) {
+		
+		Product p = new Product(product_ID, product_Name, price, description, stock);
+		
+		int result = new ProductDao().insertProduct(p);
+		
+		if(result > 0 ) {
+			new ProductView().displaySuccess("상품 추가 성공");
+		} else {
+			new ProductView().displayFail("상품 추가 실패..");
+		}
+		
+		
+	}
+	
+	public void selectByProduct(String keyword) {
+		
+	}
+	
+	
+	public void updateProduct() {
+		
+	}
+	
+	public void deleteProduct() {
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

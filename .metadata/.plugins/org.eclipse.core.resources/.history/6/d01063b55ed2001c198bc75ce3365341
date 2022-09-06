@@ -1,0 +1,64 @@
+package com.kh.model.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import com.kh.model.vo.Member;
+
+/*
+ * DAO (Data Access Object)
+ * 
+ * 데이터베이스 관련된 작업(CRUD)을 전문적으로 담당하는 객체
+ * DAO안에 모든 메서드를 데이터베이스와 관련된 작업으로 만든다.
+ * 
+ * CRUD - CREATE, RETRIEVE(READ), UPDATE, DELETE(DESTROY)
+ * SQL DML
+ * 	   SELECT
+ * 
+ * Controller를 통해서 호출된 기능을 수행
+ * DB에 직접적으로 접근한 후 해당 SQL문을 실행 및 결과 받기(JDBC)
+ * 
+ */
+
+public class MemberDao {
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

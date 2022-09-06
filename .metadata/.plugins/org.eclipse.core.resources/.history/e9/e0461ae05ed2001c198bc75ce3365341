@@ -1,0 +1,73 @@
+package com.kh.model.dao;
+
+/*
+ * DAO (Data Access Object)
+ * 
+ * 데이터베이스 관련된 작업(CRUD)을 전문적으로 담당하는 객체
+ * DAO안에 모든 메서드를 데이터베이스와 관련된 작업으로 만든다.
+ * 
+ * CRUD - CREATE, RETRIEVE(READ), UPDATE, DELETE(DESTROY)
+ * SQL DML
+ * 	   SELECT
+ * 
+ * Controller를 통해서 호출된 기능을 수행
+ * DB에 직접적으로 접근한 후 해당 SQL문을 실행 및 결과 받기(JDBC)
+ * 
+ */
+
+public class MemberDao {
+	
+	/*
+	 *  * 처리순서
+	 *  1) JDBC Driver 등록 : 해당 DBMS가 제공하는 클래스 등록
+	 *  2) Connection 객체 생성 : 접속하고자 하는 DB의 정보를 입력해서 DB에 접속하면서 생성(url, 계정 , 비번)
+	 *  3_1) PreparedStatement 객체 생성 : Connection 객체를 이용해서 생성 (미완성된 SQL문을 담아서)
+	 *  3_2) 현재 미완성된 SQL문을 완성형태로 채워지구 => 미완성일 경우에만 해당 / 완성이면 걍 보내라
+	 *  4) SQL문 실행 : executeXXXX() => sql 매개변수 x => SELECT : executeQeury() / DML : executeUpdate()
+	 *  5) 결과 받기 : SELECT : Result 객체(조회된 데이터들이 담겨있음 ) => 6_1)
+	 *  			DML : int형 (처리된 행의 개수) => 6_2)
+	 *  6_1) ResultSet에 담겨있는 데이터들을 하나씩 뽀아서 VO객체에 담는다(많으면 List)
+	 *  6_2) 트랜잭션처리(성공이면 COMMIT, 실패면 ROLLBACK)
+	 *  7) 다쓴 JDBC용 객체 반드시 자원반납(close()) => 생성 순서의 역순!! 중요
+	 *  9) 결과 반환(Service)
+	 * 
+	 */
+	
+	
+	public void insertMember(conn, m) {
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
